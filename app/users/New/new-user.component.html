@@ -1,0 +1,38 @@
+<div class="content-new">
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group" [ngClass]="{ 'has-error': name.invalid && name.touched }">
+        <input type="text" class="form-control" name="name" placeholder="Name" required
+            [(ngModel)]="newUser.name" #name="ngModel">
+
+        <span class="help-block" *ngIf="name.invalid && name.touched">Name is required.</span>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': lastname.invalid && lastname.touched }">
+        <input type="text" class="form-control" name="lastname" placeholder="Last Name" required
+            [(ngModel)]="newUser.lastname" #lastname="ngModel">
+
+        <span class="help-block" *ngIf="lastname.invalid && lastname.touched">Last Name is required.</span>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': username.invalid && username.touched }">
+        <input type="text" class="form-control" name="username" placeholder="Username" required
+            [(ngModel)]="newUser.username" #username="ngModel">
+
+        <span class="help-block" *ngIf="username.invalid && username.touched">Username is required.</span>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': password.invalid && password.touched }">
+        <input type="password" class="form-control" name="password" placeholder="Password" required
+            [(ngModel)]="newUser.password" #password="ngModel">
+
+        <span class="help-block" *ngIf="password.invalid && password.touched">Password is required.</span>
+    </div>
+
+    <button type="submit" class="btn btn-block btn-primary" [disabled]="form.invalid">
+        
+        Create User
+    </button>
+
+</form>
+</div>

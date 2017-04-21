@@ -17,6 +17,9 @@
   "devDependencies": {
     "concurrently": "^3.0.0",
     "lite-server": "^2.2.2",
+    "node-sass": "^4.5.2",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^6.0.3",
     "typescript": "^2.0.3",
     "typings": "^1.4.0"
   },
@@ -24,18 +27,17 @@
     "@angular/common": "~2.1.1",
     "@angular/compiler": "~2.1.1",
     "@angular/core": "~2.1.1",
-    
-    "@angular/platform-browser": "~2.1.1",
-    "@angular/platform-browser-dynamic": "~2.1.1",
-
     "@angular/forms": "~2.1.1",
     "@angular/http": "~2.1.1",
+    "@angular/platform-browser": "~2.1.1",
+    "@angular/platform-browser-dynamic": "~2.1.1",
     "@angular/router": "~3.1.1",
     "@angular/upgrade": "~2.1.1",
-
     "core-js": "^2.4.1",
+    "node-sass": "^4.5.2",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
+    "sass-loader": "^6.0.3",
     "systemjs": "0.19.39",
     "zone.js": "^0.6.25"
   }
