@@ -1,14 +1,11 @@
 <header class="header-content">
   <div class="row">
-  <div class="col-sm-4">  &nbsp;
-  </div>
-  <div class="navbar navbar-inverse navegador col-sm-4">
+  <div class="navbar navbar-inverse navegador col-sm-12">
     <div class="navbar-header">
       <a href="/" class="navbar-brand">Control Incidentes</a>
+      <span *ngIf="user" class="user">{{user.username}}</span>
     </div>
   </div>
-    <div class="col-sm-4">  &nbsp;
-    </div>
   </div>    
 </header>
 <main>

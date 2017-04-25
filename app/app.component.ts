@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { UserService } from './shared/services/user.service';
 import { User } from './shared/models/user';
 
@@ -8,7 +8,24 @@ import { User } from './shared/models/user';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit, OnChanges{
 
-    constructor(){ }
+    user: User = new User();
+
+    constructor(private _userService: UserService){ 
+
+    }
+
+    ngOnInit(){
+      let _self: any = this;
+
+      this._userService.UserProfile.subscribe((profile: any) => {
+          if (profile) {
+              _self.user = profile;
+          }
+      });      
+    }
+
+    ngOnChanges(): void {
+    }
 }

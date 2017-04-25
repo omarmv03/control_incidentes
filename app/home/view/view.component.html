@@ -1,0 +1,72 @@
+<div class="content-view">
+<div class="row">
+    <div class="col-xs-3">
+        <div class="input-group">
+        <input type="text" class="form-control" placeholder="Buscar por Incidente">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" (click)="filters('I')">Ir</button>
+        </span>
+        </div><!-- /input-group -->
+    </div>
+    <div class="col-xs-3">
+        <div class="input-group">
+        <input type="text" class="form-control" placeholder="Buscar por Package">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" (click)="filters('P')">Ir</button>
+        </span>
+        </div><!-- /input-group -->
+    </div>
+    <div class="col-xs-3">
+        <div class="input-group">
+        <input type="text" class="form-control" placeholder="Buscar por Modulo">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" (click)="filters('M')">Ir</button>
+        </span>
+        </div><!-- /input-group -->
+    </div>
+    <div class="col-xs-3">
+        <div class="input-group">
+        <input type="text" class="form-control" placeholder="Buscar por Sprint">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" (click)="filters('S')">Ir</button>
+        </span>
+        </div><!-- /input-group -->
+    </div>
+</div>
+<div class="row tabla">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" *ngIf="_filteredInc">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th style="width: 15%;">#</th>
+                        <th style="width: 40%;">Incidencia</th>
+                        <th style="width: 50%;">Modulo</th>
+                        <th style="width: 77%;">Paquete</th>
+                        <th style="width: 68%;">Store</th>
+                        <th style="width: 30%">Tipo</th>
+                        <th style="width: 20%;">En Test</th>
+                        <th style="width: 20%;">En UAT</th>
+                        <th style="width: 20%;">En PRD</th>
+                        <th style="width: 20%;">Sprint</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr (click)="rowClicled(inc)" *ngFor="let inc of _filteredInc; let i = index;">
+                        <th scope="row">{{i}}</th>
+                        <td>{{inc.INCIDENCIA}}</td>
+                        <td>{{inc.MODULO}}</td>
+                        <td>{{inc.PAQUETE}}</td>
+                        <td>{{inc.SP}}</td>
+                        <td>{{inc.TIPO}}</td>
+                        <td>{{inc.EN_TEST}}</td>
+                        <td>{{inc.EN_UAT}}</td>
+                        <td>{{inc.EN_PRD}}</td>
+                        <td>{{inc.SPRINT}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>

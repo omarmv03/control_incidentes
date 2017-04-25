@@ -2,7 +2,7 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Incidents }           from '../models/incidents';
-import {Observable} from 'rxjs/Rx';
+import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -11,7 +11,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ServerService {
      // Resolve HTTP using the constructor
-     constructor (private _http: Http) {}
+     constructor (private _http: Http) {
+     }
      // private instance variable to hold base url
      //private incidentsUrl = 'http://arrosvmbld04.neoris.cxnetworks.net:61434/CambiosBD.WS/Service.asmx/GetIncidents'; 
      private incidentsUrl = 'http://localhost:61434/Service.asmx/';

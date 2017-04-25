@@ -7,17 +7,19 @@ import { User } from '../../shared/models/user';
 @Injectable()
 export class UserService {
 
-    newUser: User = new User();
+    private newUser: User = new User();
+    private userProfile: Subject<User>;
 
     constructor(private serverService: ServerService,
-                private router: Router){}
+                private router: Router){
+        this.userProfile = new BehaviorSubject<User>(this.newUser);
+    }
 
     isAuthenticated():boolean {
         return this.newUser.estado;
     }
 
     login(user: User){
-        console.log(user);
         this.newUser = user;
         var _user =user.username.split('\\')[1];
         var _domain=user.username.split('\\')[0];
@@ -35,16 +37,18 @@ export class UserService {
         this.newUser.estado = val[0].estado;
         this.newUser.result = val[0].result;
 
-        console.log('this.newUser');
-        console.log(this.newUser);
-
         if (this.newUser.estado){
             //this.route.snavigate(['/home', token]);
+            this.userProfile.next(this.newUser);
             this.router.navigate(['/home']);
         }
     }
 
     getUser():User{
         return this.newUser;
+    }
+
+    get UserProfile(): Observable<User> {
+        return this.userProfile.asObservable();
     }
 }

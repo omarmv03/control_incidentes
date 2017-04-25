@@ -1,0 +1,22 @@
+.content-view{
+
+    margin-top: 20px;
+
+    .tabla{
+        margin-top: 20px;
+    }
+    .table-responsive
+    {
+        overflow-x: auto;
+        height: 350px;
+
+        table {
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+
+        table th, table td {
+            overflow: hidden;
+        }
+    }
+}

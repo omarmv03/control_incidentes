@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users/users.component';
 import { NewUserComponent } from './users/New/new-user.component';
 import { LoginComponent } from './users/Login/login.component';
 import { ServerService } from './shared/services/server.service';
@@ -12,6 +11,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { AppRouting } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import {APP_BASE_HREF} from '@angular/common';
+import {  ViewComponent } from './home/view/view.component';
+import { HomeRouting } from './home/home.route';
 
 @NgModule({
   imports: [ 
@@ -19,14 +20,15 @@ import {APP_BASE_HREF} from '@angular/common';
     HttpModule,
     FormsModule,
     JsonpModule,
-    AppRouting 
+    AppRouting,
+    HomeRouting 
   ],
   declarations: [ 
     AppComponent,
-    UsersComponent,
     NewUserComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ViewComponent
   ],
   providers: [
       ServerService,
