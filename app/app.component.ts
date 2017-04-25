@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+import { UserService } from './shared/services/user.service';
+import { User } from './shared/models/user';
 
 @Component({
   selector: 'my-app',
-  templateUrl: './app/app.component.html',
-  styleUrls: ['./app/app.component.css']
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
 
+    constructor(){ }
 }

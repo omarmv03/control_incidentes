@@ -5,4 +5,6 @@ export class User {
   username: string;
   password: string;
   domain: string;
+  estado: boolean;
+  result: string;
 }

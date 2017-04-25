@@ -1,6 +1,6 @@
 // Imports
 import { Injectable }     from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Incidents }           from '../models/incidents';
 import {Observable} from 'rxjs/Rx';
 

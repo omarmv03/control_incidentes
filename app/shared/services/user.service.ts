@@ -2,20 +2,49 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServerService } from './server.service';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
+import { User } from '../../shared/models/user';
 
 @Injectable()
 export class UserService {
 
-    constructor(private _server: ServerService){}
+    newUser: User = new User();
 
-    /*GetProfile(cb: Function) {
-        let _self: any = this;
-        this._server.apiCall("userGetProfilePost", {}, function (err: any, data: any) {
-            if (err) {
-                _self._toast.Post("Ups.. There was a problem looking for your profile.", "alert", 0);
-                return;
-            }
-            return cb();
-        });
-    }*/
+    constructor(private serverService: ServerService,
+                private router: Router){}
+
+    isAuthenticated():boolean {
+        return this.newUser.estado;
+    }
+
+    login(user: User){
+        console.log(user);
+        this.newUser = user;
+        var _user =user.username.split('\\')[1];
+        var _domain=user.username.split('\\')[0];
+
+        // Get all comments
+        this.serverService.loginUser(_domain, _user, user.password).subscribe(
+                //data => this.incidents = data,
+                data => this.result(data),
+                err => err,
+                () => console.log('Login Error')
+                );
+    }
+
+    result(val){
+        this.newUser.estado = val[0].estado;
+        this.newUser.result = val[0].result;
+
+        console.log('this.newUser');
+        console.log(this.newUser);
+
+        if (this.newUser.estado){
+            //this.route.snavigate(['/home', token]);
+            this.router.navigate(['/home']);
+        }
+    }
+
+    getUser():User{
+        return this.newUser;
+    }
 }

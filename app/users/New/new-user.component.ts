@@ -3,8 +3,8 @@ import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'new-user',
-  templateUrl: './app/users/New/new-user.component.html',
-  styleUrls: ['./app/users/New/new-user.component.scss']
+  templateUrl: './new-user.component.html',
+  styleUrls: ['./new-user.component.scss']
 })
 
 export class NewUserComponent {

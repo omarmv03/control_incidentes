@@ -1,4 +1,3 @@
-// Imports
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ServerService } from '../shared/services/server.service';
@@ -6,8 +5,7 @@ import { Incidents } from '../shared/models/incidents';
 
 @Component({
   selector: 'users',
-  templateUrl: './app/users/users.component.html',
-  styleUrls: ['./app/users/users.component.scss']
+  templateUrl: './users.component.html'
 })
 
 export class UsersComponent implements OnInit {
@@ -31,16 +29,12 @@ export class UsersComponent implements OnInit {
   
   ngOnInit(){
       // Get all comments
-      this.serverService.getComments().subscribe(
+      /*this.serverService.getComments().subscribe(
                 //data => this.incidents = data,
                 data => this.saveData(data),
                 err => err,
                 () => console.log('Random Quote Complete')
-                );
-  }
-
-  showNew(){
-    if (this.display){this.display =false}else{this.display =true}
+      );*/
   }
 
 }
