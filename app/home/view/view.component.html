@@ -1,58 +1,44 @@
 <div class="content-view">
 <div class="row">
+    <div class="col-xs-6">&nbsp;</div>
     <div class="col-xs-3">
-        <div class="input-group">
-        <input type="text" class="form-control" placeholder="Buscar por Incidente">
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button" (click)="filters('I')">Ir</button>
-        </span>
-        </div><!-- /input-group -->
+        <div class="form-group selected">
+        <label for="sel1">Sprint:</label>
+        <select class="form-control" id="sel1" [(ngModel)]="_select" (change)="optionSelected($event.target.value)">
+            <option *ngFor="let num of _selectSprint">{{num}}</option>
+        </select>
+        </div>
     </div>
     <div class="col-xs-3">
         <div class="input-group">
-        <input type="text" class="form-control" placeholder="Buscar por Package">
+        <input type="text" class="form-control" [(ngModel)]="filter_inc" placeholder="Busqueda...">
         <span class="input-group-btn">
-            <button class="btn btn-default" type="button" (click)="filters('P')">Ir</button>
-        </span>
-        </div><!-- /input-group -->
-    </div>
-    <div class="col-xs-3">
-        <div class="input-group">
-        <input type="text" class="form-control" placeholder="Buscar por Modulo">
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button" (click)="filters('M')">Ir</button>
-        </span>
-        </div><!-- /input-group -->
-    </div>
-    <div class="col-xs-3">
-        <div class="input-group">
-        <input type="text" class="form-control" placeholder="Buscar por Sprint">
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button" (click)="filters('S')">Ir</button>
+            <button class="btn btn-default" type="button" (click)="filters(filter_inc)">Ir</button>
         </span>
         </div><!-- /input-group -->
     </div>
 </div>
+
 <div class="row tabla">
     <div class="col-xs-12">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" *ngIf="_filteredInc">
+            <table class="table table-bordered table-hover table-striped" id="example" #example *ngIf="_filteredInc">
                 <thead class="thead-inverse">
                     <tr>
                         <th style="width: 15%;">#</th>
-                        <th style="width: 40%;">Incidencia</th>
-                        <th style="width: 50%;">Modulo</th>
-                        <th style="width: 77%;">Paquete</th>
-                        <th style="width: 68%;">Store</th>
-                        <th style="width: 30%">Tipo</th>
-                        <th style="width: 20%;">En Test</th>
-                        <th style="width: 20%;">En UAT</th>
-                        <th style="width: 20%;">En PRD</th>
-                        <th style="width: 20%;">Sprint</th>
+                        <th style="width: 40%;" (click)="changeSort('INCIDENCIA')">Incidencia</th>
+                        <th style="width: 50%;" (click)="changeSort('MODULO')">Modulo</th>
+                        <th style="width: 77%;" (click)="changeSort('PAQUETE')">Paquete</th>
+                        <th style="width: 68%;" (click)="changeSort('SP')">Store</th>
+                        <th style="width: 30%" (click)="changeSort('TIPO')">Tipo</th>
+                        <th style="width: 20%;" (click)="changeSort('EN_TEST')">En Test</th>
+                        <th style="width: 20%;" (click)="changeSort('EN_UAT')">En UAT</th>
+                        <th style="width: 20%;" (click)="changeSort('EN_PRD')">En PRD</th>
+                        <th style="width: 20%;" (click)="changeSort('SPRINT')">Sprint</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr (click)="rowClicled(inc)" *ngFor="let inc of _filteredInc; let i = index;">
+                    <tr (click)="setSelected(inc)" *ngFor="let inc of _filteredInc; let i = index;">
                         <th scope="row">{{i}}</th>
                         <td>{{inc.INCIDENCIA}}</td>
                         <td>{{inc.MODULO}}</td>
@@ -69,4 +55,8 @@
         </div>
     </div>
 </div>
+
+<desc-inc *ngIf="_showModal" [showModal]="_showModal" [valores]="incSelected" (onCanceled)="_showModal=false">
+</desc-inc>
+
 </div>

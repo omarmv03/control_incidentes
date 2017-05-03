@@ -1,0 +1,130 @@
+<div class="content-load">
+<div class="row">
+    <div class="col-xs-12 title-load">
+        <h2><span class="label label-info">Carga de Incidentes</span></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-3">&nbsp;</div>
+    <div class="col-xs-6">
+        <div class="row">
+            <div class="col-xs-12 radios">
+                <label class="radio-inline"><input (click)="radioSelected = 'BASE'" [checked]="radioSelected == 'BASE'"  value="BASE" type="radio" name="optradio">Cambio de Base</label>
+                <label class="radio-inline"><input (click)="radioSelected = 'SCRIPT'" [checked]="radioSelected == 'SCRIPT'" type="radio" value="SCRIPT" name="optradio">Script</label>
+                <label class="radio-inline"><input (click)="radioSelected = 'ESQUEMA'" [checked]="radioSelected == 'ESQUEMA'" type="radio" value="ESQUEMA" name="optradio">Cambio Esquema</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group loader-input">
+                    <label>Incidencia</label>
+                    <input type="text" placeholder="LDC 0000" class="form-control" [(ngModel)]="incidents.INCIDENCIA">
+                </div>
+            </div>
+            <div class="col-xs-3">&nbsp;</div>
+            <div class="col-xs-3">
+                <div class="form-group loader-input">
+                    <label>Sprint</label>
+                    <input type="number" min="0" max="999" class="form-control" [(ngModel)]="incidents.SPRINT">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group loader-input">
+                    <label>Changeset</label>
+                    <input type="number" min="0" max="99999" class="form-control" [(ngModel)]="incidents.CHANGESET">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group loader-input">
+                    <label>Modulo</label>
+                    <select [(ngModel)]="incidents.MODULO"  class="form-control input-sm">
+                        <option [value]="-1" [selected]="incidents.MODULO === ''">Seleccionar</option>
+                        <option [value]="ADMG" >Administraciones</option>
+                        <option [value]="APLICACIONES" >Aplicaciones</option>
+                        <option [value]="BOLETOS" >Boletos</option>
+                        <option [value]="CARDES" >CargasDescarga</option>
+                        <option [value]="CONTABILIZACIONES" >Contabilizaciones</option>
+                        <option [value]="CONTRATOS" >Contratos</option>
+                        <option [value]="CUPOS" >Cupos</option>
+                        <option [value]="GARANTIAS" >Garantias</option>
+                        <option [value]="DATAWAREHOUSE" >ETLs</option>
+                        <option [value]="FLETES" >Fletes</option>
+                        <option [value]="INT_LAGOS" >Interface Lagos</option>
+                        <option [value]="LIQUIDACIONES" >Liquidaciones</option>
+                        <option [value]="INT_ONCCA" >Oncca</option>
+                        <option [value]="INT_WEB" >Interface Web</option>
+                        <option [value]="PRECIOS" >Precios</option>
+                        <option [value]="INT_RECIB" >Interface Recibidores</option>
+                        <option [value]="STOCK" >Stock</option>
+                        <option [value]="SEGURIDAD" >Seguridad</option>
+                        <option [value]="LDCWEBTEST" >WEB</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="radioSelected == 'BASE'">
+            <div class="col-xs-6">
+                <div class="form-group loader-input">
+                    <label>Paquete</label>
+                    <select [(ngModel)]="incidents.PAQUETE" (change)="onChange($event.target.value)" class="form-control input-sm">
+                        <option [disabled]="incidents.PAQUETE != undefined" [value]="-1" [selected]="incidents.PAQUETE === '-1'">Seleccionar</option>
+                        <option *ngFor="let pkg of _paquetes">{{pkg.OBJECT_NAME}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group loader-input">
+                    <label>Procedimiento</label>
+                    <!--<input class="form-control" disabled [(ngModel)]="valores.SP">-->
+                    <textarea class="form-control" [(ngModel)]="incidents.SP"></textarea>
+                </div>
+            </div>
+        </div>    
+
+        <div class="row" *ngIf="radioSelected != 'BASE'">
+            <div class="col-xs-12">
+                <div class="form-group loader-input">
+                    <label>Nombre Exacto del Script</label>
+                    <input id="sqlfile" (change)="fileChangeEvent($event)" accept=".sql" name="file" type="file" />
+                </div>
+            </div>
+        </div>   
+
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group loader-input">
+                    <label>Autor</label>
+                    <input type="text" class="form-control" disabled [(ngModel)]="incidents.AUTOR">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group loader-input">
+                    <label>Fecha</label>
+                    <input type="text" class="form-control" disabled [(ngModel)]="incidents.FECHA">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group loader-input">
+                    <label>Detalle Cambios</label>
+                    <textarea class="form-control" [(ngModel)]="incidents.CAMBIO_REALIZADO"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-3">&nbsp;</div>
+</div>
+<div class="row">
+    <div class="col-xs-4">&nbsp;</div>
+    <div class="col-xs-4">
+            <button type="submit" (click)="onSubmit()" class="btn btn-block btn-primary">
+                Cargar
+            </button>
+    </div>
+    <div class="col-xs-4">&nbsp;</div>
+</div>

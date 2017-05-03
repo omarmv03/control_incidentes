@@ -18,8 +18,8 @@ export class ServerService {
      private incidentsUrl = 'http://localhost:61434/Service.asmx/';
      private _data;
 
-     // Fetch all existing comments
-     getComments(): any{
+     // Fetch all existing incidents
+     getIncidents(): any{
          // ...using get request
          return this._http.get(this.incidentsUrl+'GetIncidents')
                 .map((res:Response) => res.json());
@@ -38,6 +38,34 @@ export class ServerService {
 
         return this._http.post(this.incidentsUrl+'IsAuthenticated',_self.toString(),{headers:headers})
                 .map((res:Response) => res.json());
+     }
+
+     // Fetch all existing incidents
+     getIncidentsForSprint(val): any{
+
+        let headers = new Headers();
+        headers.append('Content-type', 'application/x-www-form-urlencoded');
+
+        let _self = new URLSearchParams();
+        _self.set('sprint', val);
+
+         return this._http.post(this.incidentsUrl+'GetIncidentsForSprint',_self.toString(),{headers:headers})
+                .map((res:Response) => res.json());
+        
+     }
+     // Fetch all existing incidents
+     getObjects(): any{
+         // ...using get request
+         return this._http.get(this.incidentsUrl+'GetObjects')
+                .map((res:Response) => res.json());
+        
+     }
+     // Fetch all existing incidents
+     getMaxSprint(): any{
+         // ...using get request
+         return this._http.get(this.incidentsUrl+'GetMaxSprint')
+                .map((res:Response) => res.json());
+        
      }
 
 

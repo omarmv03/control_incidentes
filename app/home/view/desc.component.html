@@ -1,0 +1,107 @@
+<app-modal class="modal-content" #modal1 [display]="_showModal" (onCancel)="onCancel()">
+<div class="app-modal-header">
+    Detalle de Incidente
+</div>
+<div class="app-modal-body">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Incidencia</label>
+                <input class="form-control" disabled [(ngModel)]="valores.INCIDENCIA">
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Changeset</label>
+                <input class="form-control" disabled [(ngModel)]="valores.CHANGESET">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Modulo</label>
+                <input class="form-control" disabled [(ngModel)]="valores.MODULO">
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Tipo Cambio</label>
+                <input class="form-control" disabled [(ngModel)]="valores.TIPO">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Paquete</label>
+                <input class="form-control" disabled [(ngModel)]="valores.PAQUETE">
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Procedimiento</label>
+                <!--<input class="form-control" disabled [(ngModel)]="valores.SP">-->
+                <textarea class="form-control" disabled [(ngModel)]="valores.SP"></textarea>
+            </div>
+        </div>
+    </div>    
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Autor</label>
+                <input class="form-control" disabled [(ngModel)]="valores.AUTOR">
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label>Fecha</label>
+                <input class="form-control" disabled [(ngModel)]="valores.FECHA">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label>TEST</label>
+                <input class="form-control" disabled [(ngModel)]="valores.EN_TEST">
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label>UAT</label>
+                <input class="form-control" disabled [(ngModel)]="valores.EN_UAT">
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label>PRD</label>
+                <input class="form-control" disabled [(ngModel)]="valores.EN_PRD">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label>Sprint</label>
+                <input class="form-control" disabled [(ngModel)]="valores.SPRINT">
+            </div>
+        </div>
+        <div class="col-xs-9">
+            <div class="form-group">
+                <label>Detalle Cambios</label>
+                <textarea class="form-control" disabled [(ngModel)]="valores.CAMBIO_REALIZADO"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal1.hide()">Cerrar</button>
+    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+</div>
+</app-modal>

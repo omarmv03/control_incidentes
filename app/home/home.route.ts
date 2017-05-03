@@ -4,11 +4,13 @@ import {HomeComponent} from './home.component';
 import { LoginComponent } from '../users/Login/login.component';
 import { CanActivateViaAuthGuard } from '../shared/services/login-auth.service';
 import { ViewComponent } from '../home/view/view.component';
+import { LoadComponent } from '../home/load/load.component';
 
 const Homeroutes: Routes = [
   { path: '', component: HomeComponent , canActivate: [CanActivateViaAuthGuard],
     children: [
-        { path: 'view', component: ViewComponent}
+        { path: 'view', component: ViewComponent},
+        { path: 'load', component: LoadComponent}
     ]}
 ];
 
