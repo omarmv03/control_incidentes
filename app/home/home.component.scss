@@ -2,6 +2,10 @@
     .navegador{
         margin-bottom: 0px;
     }
+    .not-active {
+    pointer-events: not-allowed;
+    cursor: not-allowed;
+    }
 }
 main{
     text-align: center;

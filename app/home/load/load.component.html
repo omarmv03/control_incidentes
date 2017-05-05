@@ -1,7 +1,7 @@
 <div class="content-load">
 <div class="row">
     <div class="col-xs-12 title-load">
-        <h2><span class="label label-info">Carga de Incidentes</span></h2>
+        <h1><span class="label label-info">Carga de Incidentes</span></h1>
     </div>
 </div>
 <div class="row">
@@ -9,9 +9,9 @@
     <div class="col-xs-6">
         <div class="row">
             <div class="col-xs-12 radios">
-                <label class="radio-inline"><input (click)="radioSelected = 'BASE'" [checked]="radioSelected == 'BASE'"  value="BASE" type="radio" name="optradio">Cambio de Base</label>
-                <label class="radio-inline"><input (click)="radioSelected = 'SCRIPT'" [checked]="radioSelected == 'SCRIPT'" type="radio" value="SCRIPT" name="optradio">Script</label>
-                <label class="radio-inline"><input (click)="radioSelected = 'ESQUEMA'" [checked]="radioSelected == 'ESQUEMA'" type="radio" value="ESQUEMA" name="optradio">Cambio Esquema</label>
+                <label class="radio-inline" data-toggle="tooltip" title="PKG, TRIGGERS, VIEWS"><input (click)="selectRadio('BASE')" [checked]="incidents.TIPO === 'BASE'"  value="BASE" type="radio" name="optradio">Cambio de Base</label>
+                <label class="radio-inline" data-toggle="tooltip" title="Scripts creados por una incidencia"><input (click)="selectRadio('SCRIPT')" [checked]="incidents.TIPO === 'SCRIPT'" type="radio" value="SCRIPT" name="optradio">Script</label>
+                <label class="radio-inline" data-toggle="tooltip" title="ALTER TABLE"><input (click)="selectRadio('ESQUEMA')" [checked]="incidents.TIPO === 'ESQUEMA'" type="radio" value="ESQUEMA" name="optradio">Cambio Esquema</label>
             </div>
         </div>
         <div class="row">
@@ -20,6 +20,7 @@
                     <label>Incidencia</label>
                     <input type="text" placeholder="LDC 0000" class="form-control" [(ngModel)]="incidents.INCIDENCIA">
                 </div>
+                <div class="content-error"><span class="error" *ngIf="err_Inc">Ingrese numero de incidencia.</span></div>
             </div>
             <div class="col-xs-3">&nbsp;</div>
             <div class="col-xs-3">
@@ -27,6 +28,7 @@
                     <label>Sprint</label>
                     <input type="number" min="0" max="999" class="form-control" [(ngModel)]="incidents.SPRINT">
                 </div>
+                <div class="content-error"><span class="error" *ngIf="err_Spr">Ingrese un Sprint.</span></div>
             </div>
         </div>
         <div class="row">
@@ -35,37 +37,39 @@
                     <label>Changeset</label>
                     <input type="number" min="0" max="99999" class="form-control" [(ngModel)]="incidents.CHANGESET">
                 </div>
+                <div class="content-error"><span class="error" *ngIf="err_Chg">Ingrese un changeset.</span></div>
             </div>
             <div class="col-xs-6">
                 <div class="form-group loader-input">
                     <label>Modulo</label>
-                    <select [(ngModel)]="incidents.MODULO"  class="form-control input-sm">
+                    <select [disabled]="incidents.TIPO == 'BASE'" [(ngModel)]="incidents.MODULO"  class="form-control input-sm">
                         <option [value]="-1" [selected]="incidents.MODULO === ''">Seleccionar</option>
-                        <option [value]="ADMG" >Administraciones</option>
-                        <option [value]="APLICACIONES" >Aplicaciones</option>
-                        <option [value]="BOLETOS" >Boletos</option>
-                        <option [value]="CARDES" >CargasDescarga</option>
-                        <option [value]="CONTABILIZACIONES" >Contabilizaciones</option>
-                        <option [value]="CONTRATOS" >Contratos</option>
-                        <option [value]="CUPOS" >Cupos</option>
-                        <option [value]="GARANTIAS" >Garantias</option>
-                        <option [value]="DATAWAREHOUSE" >ETLs</option>
-                        <option [value]="FLETES" >Fletes</option>
-                        <option [value]="INT_LAGOS" >Interface Lagos</option>
-                        <option [value]="LIQUIDACIONES" >Liquidaciones</option>
-                        <option [value]="INT_ONCCA" >Oncca</option>
-                        <option [value]="INT_WEB" >Interface Web</option>
-                        <option [value]="PRECIOS" >Precios</option>
-                        <option [value]="INT_RECIB" >Interface Recibidores</option>
-                        <option [value]="STOCK" >Stock</option>
-                        <option [value]="SEGURIDAD" >Seguridad</option>
-                        <option [value]="LDCWEBTEST" >WEB</option>
+                        <option [selected]="incidents.MODULO === 'ADMG'" [value]="'ADMG'" >Administraciones</option>
+                        <option [selected]="incidents.MODULO === 'APLICACIONES'" [value]="'APLICACIONES'" >Aplicaciones</option>
+                        <option [selected]="incidents.MODULO === 'BOLETOS'" [value]="'BOLETOS'" >Boletos</option>
+                        <option [selected]="incidents.MODULO === 'CARDES'" [value]="'CARDES'" >CargasDescarga</option>
+                        <option [selected]="incidents.MODULO === 'CONTABILIZACIONES'" [value]="'CONTABILIZACIONES'" >Contabilizaciones</option>
+                        <option [selected]="incidents.MODULO === 'CONTRATOS'" [value]="'CONTRATOS'" >Contratos</option>
+                        <option [selected]="incidents.MODULO === 'CUPOS'" [value]="'CUPOS'" >Cupos</option>
+                        <option [selected]="incidents.MODULO === 'GARANTIAS'" [value]="'GARANTIAS'" >Garantias</option>
+                        <option [selected]="incidents.MODULO === 'DATAWAREHOUSE'" [value]="'DATAWAREHOUSE'" >ETLs</option>
+                        <option [selected]="incidents.MODULO === 'FLETES'" [value]="'FLETES'" >Fletes</option>
+                        <option [selected]="incidents.MODULO === 'INT_LAGOS'" [value]="'INT_LAGOS'" >Interface Lagos</option>
+                        <option [selected]="incidents.MODULO === 'LIQUIDACIONES'" [value]="'LIQUIDACIONES'" >Liquidaciones</option>
+                        <option [selected]="incidents.MODULO === 'INT_ONCCA'" [value]="'INT_ONCCA'" >Oncca</option>
+                        <option [selected]="incidents.MODULO === 'INT_WEB'" [value]="'INT_WEB'" >Interface Web</option>
+                        <option [selected]="incidents.MODULO === 'PRECIOS'" [value]="'PRECIOS'" >Precios</option>
+                        <option [selected]="incidents.MODULO === 'INT_RECIB'" [value]="'INT_RECIB'" >Interface Recibidores</option>
+                        <option [selected]="incidents.MODULO === 'STOCK'" [value]="'STOCK'" >Stock</option>
+                        <option [selected]="incidents.MODULO === 'SEGURIDAD'" [value]="'SEGURIDAD'" >Seguridad</option>
+                        <option [selected]="incidents.MODULO === 'LDCWEBTEST'" [value]="'LDCWEBTEST'" >WEB</option>
                     </select>
                 </div>
+                <div class="content-error"><span class="error" *ngIf="err_Mod">Seleccione un modulo.</span></div>
             </div>
         </div>
 
-        <div class="row" *ngIf="radioSelected == 'BASE'">
+        <div class="row" *ngIf="incidents.TIPO == 'BASE'">
             <div class="col-xs-6">
                 <div class="form-group loader-input">
                     <label>Paquete</label>
@@ -74,6 +78,7 @@
                         <option *ngFor="let pkg of _paquetes">{{pkg.OBJECT_NAME}}</option>
                     </select>
                 </div>
+                <div class="content-error"><span class="error" *ngIf="err_Pkg">Seleccione un paquete.</span></div>
             </div>
             <div class="col-xs-6">
                 <div class="form-group loader-input">
@@ -81,15 +86,17 @@
                     <!--<input class="form-control" disabled [(ngModel)]="valores.SP">-->
                     <textarea class="form-control" [(ngModel)]="incidents.SP"></textarea>
                 </div>
+                <div class="content-error"><span class="error" *ngIf="err_Prc">Ingrese el procedimiento modificado.</span></div>
             </div>
         </div>    
 
-        <div class="row" *ngIf="radioSelected != 'BASE'">
+        <div class="row" *ngIf="incidents.TIPO != 'BASE'">
             <div class="col-xs-12">
                 <div class="form-group loader-input">
                     <label>Nombre Exacto del Script</label>
                     <input id="sqlfile" (change)="fileChangeEvent($event)" accept=".sql" name="file" type="file" />
                 </div>
+                <div class="content-error"><span class="error" *ngIf="err_Scr">Seleccione un script.</span></div>
             </div>
         </div>   
 
@@ -114,6 +121,7 @@
                     <label>Detalle Cambios</label>
                     <textarea class="form-control" [(ngModel)]="incidents.CAMBIO_REALIZADO"></textarea>
                 </div>
+                <div class="content-error"><span class="error" *ngIf="err_Det">Ingrese un detalle del cambio.</span></div>
             </div>
         </div>
     </div>

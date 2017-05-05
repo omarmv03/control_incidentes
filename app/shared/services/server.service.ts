@@ -67,6 +67,17 @@ export class ServerService {
                 .map((res:Response) => res.json());
         
      }
+     loadInc(arrayVal):any{
+        console.log('arrayVal');
+        let headers = new Headers();
+        headers.append('Content-type', 'application/x-www-form-urlencoded');
+
+        let _self = new URLSearchParams();
+        _self.set('list', arrayVal);
+        console.log(_self);
+        return this._http.post(this.incidentsUrl+'loadIncident',_self.toString(),{headers:headers})
+                .map((res:Response) => res.json());
+     }
 
 
 

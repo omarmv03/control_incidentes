@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Incidents } from '../../shared/models/incidents';
 import { ServerService } from '../../shared/services/server.service';
 import { User } from '../../shared/models/user';
+import { BaseModel } from '../../shared/models/baseobj';
 import { UserService } from '../../shared/services/user.service';
 import { ViewComponent } from '../../home/view/view.component';
 
@@ -14,12 +15,19 @@ import { ViewComponent } from '../../home/view/view.component';
 
 export class LoadComponent implements OnInit {
 
-    //incidents:Incidents[] = new Array<Incidents>();
     incidents:Incidents = new Incidents();
     user: User = new User();
-    objects:any;
-    _paquetes:any;
-    radioSelected:string = 'BASE';
+    objects:BaseModel[]= new Array<BaseModel>();
+    _paquetes:Array<BaseModel> = [];
+    //radioSelected:string = 'BASE';
+    err_Inc:boolean;
+    err_Spr:boolean;
+    err_Chg:boolean;
+    err_Mod:boolean;
+    err_Pkg:boolean;
+    err_Prc:boolean;
+    err_Scr:boolean;
+    err_Det:boolean;
     // Constructor with injected service
     constructor(private serverService: ServerService,
                 private _userService: UserService) {
@@ -29,6 +37,8 @@ export class LoadComponent implements OnInit {
         this.objects = val;
         this._paquetes = this.objects.filter((a:any)=>
                             a.OBJECT_TYPE == 'PACKAGE');
+        //Setea el seleccionar del component SELECT
+        this.incidents.PAQUETE = '-1'
     }
     saveSprint(val){
         this.incidents.SPRINT = val[0].SPRINT;
@@ -72,17 +82,85 @@ export class LoadComponent implements OnInit {
 
         this.incidents.AUTOR = this.user.username;
         this.incidents.FECHA = this.getTodayDate();
+        //this.incidents.TIPO = 'BASE'
 
     }
     onChange(ev){
-        console.log(ev);
+        let objeto: any;
+        objeto = this.objects.filter((a:any)=>
+                            a.OBJECT_NAME == ev);
+
+        this.incidents.MODULO =objeto[0].OWNER;
     }
     fileChangeEvent(ev){
         this.incidents.PAQUETE =ev.target.files[0].name;
     }
+    selectRadio(radioVal){
+        this.err_Inc = false;
+        this.err_Spr = false;
+        this.err_Chg = false;
+        this.err_Mod = false;
+        this.err_Pkg = false;
+        this.err_Prc = false;
+        this.err_Scr = false;
+        this.err_Det = false;
+
+        this.incidents.MODULO = '';
+        if (radioVal ==='BASE'){
+            this.incidents.PAQUETE ='-1';
+        }else{
+            this.incidents.PAQUETE ='';
+        }
+        this.incidents.TIPO = radioVal;
+    }
     onSubmit(){
         console.log('onSubmit');
-        console.log(this.incidents);
+        this.err_Inc = false;
+        this.err_Spr = false;
+        this.err_Chg = false;
+        this.err_Mod = false;
+        this.err_Pkg = false;
+        this.err_Prc = false;
+        this.err_Scr = false;
+        this.err_Det = false;
+
+        if (this.incidents.INCIDENCIA === "" || this.incidents.INCIDENCIA === undefined){
+            this.err_Inc=true;
+        }
+        if (this.incidents.SPRINT === "" || this.incidents.SPRINT === undefined){
+            this.err_Spr=true;
+        }
+        if (this.incidents.CHANGESET === "" || this.incidents.CHANGESET === undefined){
+            this.err_Chg=true;
+        }
+        if (this.incidents.MODULO === "" || this.incidents.MODULO === undefined){
+            this.err_Mod=true;
+        }
+        if (this.incidents.PAQUETE === "" || this.incidents.PAQUETE === "-1" || this.incidents.PAQUETE === undefined && this.incidents.TIPO == 'BASE') {
+            this.err_Pkg=true;
+        }
+        if (this.incidents.PAQUETE === "" || this.incidents.PAQUETE === undefined && this.incidents.TIPO != 'BASE') {
+            this.err_Scr=true;
+        }
+        if (this.incidents.SP === "" || this.incidents.SP === undefined && this.incidents.TIPO =='BASE'){
+            this.err_Prc=true;
+        }
+        if (this.incidents.CAMBIO_REALIZADO === "''" || this.incidents.CAMBIO_REALIZADO === undefined){
+            this.err_Det=true;
+        }
+
+        if ( this.err_Inc == false &&
+            this.err_Spr == false &&
+            this.err_Chg == false &&
+            this.err_Mod == false &&
+            this.err_Pkg == false &&
+            this.err_Prc == false &&
+            this.err_Scr == false &&
+            this.err_Det == false)
+        {
+            console.log(JSON.stringify(this.incidents));
+            this.serverService.loadInc(JSON.stringify(this.incidents));
+        }
     }
 
 }

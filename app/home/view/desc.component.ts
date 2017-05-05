@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'desc-inc',
@@ -16,7 +17,8 @@ export class DescComponent implements OnInit{
     constructor(){}
 
     ngOnInit(){
-
+        this.valores.FECHA = moment(this.valores.FECHA).format('YYYY-MM-DD h:mm:ss a');
+        this.valores.FECHA_ULT_MOD = moment(this.valores.FECHA_ULT_MOD).format('YYYY-MM-DD h:mm:ss a');
     }
     onCancel(){
         this._showModal=false;

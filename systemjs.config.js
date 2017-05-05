@@ -9,7 +9,8 @@
     '@angular':                   'node_modules/@angular',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs',
-    'ng2-table': 'npm:ng2-table'
+    'ng2-table': 'npm:ng2-table',
+    'moment': 'node_modules/moment'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
@@ -17,7 +18,8 @@
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
     'ng2-table': {
-        defaultExtension: 'js'
+        defaultExtension: 'js',
+    'moment': { defaultExtension: 'js' }
     }
   };
   var ngPackageNames = [

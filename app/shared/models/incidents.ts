@@ -21,7 +21,7 @@ export class Incidents {
     @JsonMember
     public SP:string;
     @JsonMember
-    public TIPO:string;
+    public TIPO:string = 'BASE';
     @JsonMember
     public CAMBIO_REALIZADO:string;
     @JsonMember
