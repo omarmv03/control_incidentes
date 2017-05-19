@@ -158,8 +158,8 @@ export class LoadComponent implements OnInit {
             this.err_Scr == false &&
             this.err_Det == false)
         {
-            console.log(JSON.stringify(this.incidents));
-            this.serverService.loadInc(JSON.stringify(this.incidents));
+            console.log(this.incidents);
+            this.serverService.loadInc(this.incidents);
         }
     }
 

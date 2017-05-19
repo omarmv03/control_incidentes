@@ -68,16 +68,24 @@ export class ServerService {
         
      }
      loadInc(arrayVal):any{
-        console.log('arrayVal');
-        let headers = new Headers();
-        headers.append('Content-type', 'application/x-www-form-urlencoded');
+        let headers = new Headers ();
+        headers.append('Content-Type', 'application/json; charset=UTF-8');
+        let options = new RequestOptions({ headers: headers, method: "post" });
+        let data = {"list": arrayVal};
+        /*let _self = new URLSearchParams();
+        _self.set('list', arrayVal);*/
+        let body = JSON.stringify(data);
 
-        let _self = new URLSearchParams();
-        _self.set('list', arrayVal);
-        console.log(_self);
-        return this._http.post(this.incidentsUrl+'loadIncident',_self.toString(),{headers:headers})
-                .map((res:Response) => res.json());
+        console.log(body);
+        console.log(this.incidentsUrl+'sendIncident');
+        this._http.post(this.incidentsUrl+'sendIncident',body,options)
+            .toPromise().then(response =>{ return response.json()}, this.handleError);
+                //.map((res:Response) => console.error(res.json()));
      }
+    handleError(error) {
+        console.log(error);
+        return error.json().message || 'Server error, please try again later';
+    }
 
 
 
